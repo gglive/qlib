@@ -10,8 +10,9 @@ from qlib.data import D
 import numpy as np
 
 DIRNAME = Path(__file__).absolute().resolve().parent
-
-
+print(DIRNAME.parent.parent/"qlib")
+import sys
+sys.path.append(str(DIRNAME.parent.parent/"qlib"))
 class FileStrTest(TestAutoData):
     # Assumption to ensure the correctness of the test
     # - No price adjustment in these several trading days.

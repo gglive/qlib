@@ -318,6 +318,10 @@ class Normalize:
             with tqdm(total=len(file_list)) as p_bar:
                 for _ in worker.map(self._executor, file_list):
                     p_bar.update()
+                # # for debug    
+                # for f in file_list:
+                #     self._executor(f)
+                #     p_bar.update()
 
 
 class BaseRun(abc.ABC):

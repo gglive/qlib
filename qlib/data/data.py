@@ -508,7 +508,7 @@ class DatasetProvider(abc.ABC):
         return DiskDatasetCache._uri(instruments, fields, start_time, end_time, freq, disk_cache, inst_processors)
 
     @staticmethod
-    def get_instruments_d(instruments, freq):
+    def get_instruments_d(instruments, freq, start_time=None, end_time=None):
         """
         Parse different types of input instruments to output instruments_d
         Wrong format of input instruments will lead to exception.
@@ -517,7 +517,7 @@ class DatasetProvider(abc.ABC):
         if isinstance(instruments, dict):
             if "market" in instruments:
                 # dict of stockpool config
-                instruments_d = Inst.list_instruments(instruments=instruments, freq=freq, as_list=False)
+                instruments_d = Inst.list_instruments(instruments=instruments, start_time=start_time, end_time=end_time, freq=freq, as_list=False)
             else:
                 # dict of instruments and timestamp
                 instruments_d = instruments
@@ -909,7 +909,7 @@ class LocalDatasetProvider(DatasetProvider):
         freq="day",
         inst_processors=[],
     ):
-        instruments_d = self.get_instruments_d(instruments, freq)
+        instruments_d = self.get_instruments_d(instruments, freq, start_time=start_time, end_time=end_time)
         column_names = self.get_column_names(fields)
         if self.align_time:
             # NOTE: if the frequency is a fixed value.
